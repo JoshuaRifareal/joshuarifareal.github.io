@@ -1,8 +1,17 @@
 body{
 	overflow:hidden;
-	background-color:#fcfcfc;
+	background-color:#252729;
 	margin:0;
 	padding:0;
+}
+
+/*  TRY */
+.magazine-viewport {
+	-webkit-perspective:2000px;
+	-moz-perspective: 2000px;
+	-ms-perspective: 2000px;
+
+	perspective: 2000px
 }
 
 .magazine-viewport .container{
@@ -17,8 +26,8 @@ body{
 .magazine-viewport .magazine{
 	width:922px;
 	height:600px;
-	left:-461px;
-	top:-300px;
+	left:461px;
+	top:300px;
 }
 
 .magazine-viewport .page{
@@ -34,6 +43,7 @@ body{
 }
 
 .magazine .region{
+	visibility: hidden;
 	position:absolute;
 	overflow:hidden;
 	background:#0066FF;
@@ -84,6 +94,12 @@ body{
 	margin:0;
 }
 
+.page.p1.odd>.gradient {
+	left: 2px;
+	width: 5%;
+	background-image: linear-gradient(to right, white, #0000002f, white);
+}
+
 .magazine .even .gradient{
 	position:absolute;
 	top:0;
@@ -92,7 +108,7 @@ body{
 	height:100%;
 
 	background:-webkit-gradient(linear, left top, right top, color-stop(0.95, rgba(0,0,0,0)), color-stop(1, rgba(0,0,0,0.2)));
-	background-image:-webkit-linear-gradient(left, rgba(0,0,0,0) 95%, rgba(0,0,0,0.2) 100%);
+	background-image:-webkit-linear-gradient(left, rgba(0,0,0,0) 90%, rgba(0,0,0,0.3) 100%);
 	background-image:-moz-linear-gradient(left, rgba(0,0,0,0) 95%, rgba(0,0,0,0.2) 100%);
 	background-image:-ms-linear-gradient(left, rgba(0,0,0,0) 95%, rgba(0,0,0,0.2) 100%);
 	background-image:-o-linear-gradient(left, rgba(0,0,0,0) 95%, rgba(0,0,0,0.2) 100%);
@@ -107,7 +123,7 @@ body{
 	height:100%;
 
 	background:-webkit-gradient(linear, right top, left top, color-stop(0.95, rgba(0,0,0,0)), color-stop(1, rgba(0,0,0,0.15)));
-	background-image:-webkit-linear-gradient(right, rgba(0,0,0,0) 95%, rgba(0,0,0,0.15) 100%);
+	background-image:-webkit-linear-gradient(right, rgba(0,0,0,0) 90%, rgba(0,0,0,0.25) 100%);
 	background-image:-moz-linear-gradient(right, rgba(0,0,0,0) 95%, rgba(0,0,0,0.15) 100%);
 	background-image:-ms-linear-gradient(right, rgba(0,0,0,0) 95%, rgba(0,0,0,0.15) 100%);
 	background-image:-o-linear-gradient(right, rgba(0,0,0,0) 95%, rgba(0,0,0,0.15) 100%);
@@ -131,17 +147,19 @@ body{
 }
 
 .magazine-viewport .shadow{
-	-webkit-transition: -webkit-box-shadow 3s;
+	/* -webkit-transition: -webkit-box-shadow 3s;
 	-moz-transition: -moz-box-shadow 3s;
 	-o-transition: -webkit-box-shadow 3s;
 	-ms-transition: -ms-box-shadow 3s;
 	transition: box-shadow 3s ease-in-out;
 
-	-webkit-box-shadow:0 0 10px #ccc;
-	-moz-box-shadow:0 0 10px #ccc;
-	-o-box-shadow:0 0 10px #ccc;
-	-ms-box-shadow:0 0 10px #ccc;
-	box-shadow:0 0 10px #ccc;
+	-webkit-box-shadow:0 0 10px #252525;
+	-moz-box-shadow:0 0 10px #252525;
+	-o-box-shadow:0 0 10px #252525;
+	-ms-box-shadow:0 0 10px #252525;
+	box-shadow:0 0 10px #252525; */
+	
+	box-shadow: 10px 6px 12px 0px rgba(0,0,0,0.75);-webkit-box-shadow: 10px 6px 12px 0px rgba(0,0,0,0.75);-moz-box-shadow: 10px 6px 12px 0px rgba(0,0,0,0.75);
 }
 
 .magazine-viewport .next-button,
@@ -378,7 +396,7 @@ body{
 }
 
 .bottom{
-	position:absolute;
+	display: block;
 	left:0;
 	bottom:0;
 	width:100%;

@@ -13,11 +13,11 @@
 
 <div id="canvas">
 
-<div class="zoom-icon zoom-icon-in"></div>
+<!-- <div class="zoom-icon zoom-icon-in"></div> -->
 
 <div class="magazine-viewport">
-	<div class="container">
-		<div class="magazine">
+	<div class="container" draggable="false">
+		<div class="magazine" draggable="false">
 			<!-- Next button -->
 			<!-- <div ignore="1" class="next-button"></div> -->
 			<!-- Previous button -->
@@ -70,7 +70,7 @@
 
 				// Elevation from the edge of the flipbook when turning a page
 
-				elevation: 50,
+				elevation: 100,
 
 				// The number of pages
 
@@ -86,13 +86,10 @@
 						pages = book.turn('pages');
 				
 						// Update the current URI
-
 						Hash.go('page/' + page).update();
 
 						// Show and hide navigation buttons
-
 						disableControls(page);
-
 					},
 
 					turned: function(event, page, view) {

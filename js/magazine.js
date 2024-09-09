@@ -2,6 +2,8 @@
  * Magazine sample
 */
 
+$('*').attr('draggable', false);
+
 function addPage(page, book) {
 
 	var id, pages = book.turn('pages');
@@ -235,8 +237,8 @@ function resizeViewport() {
 
 	if ($('.magazine').turn('zoom')==1) {
 		var bound = calculateBound({
-			width: options.width,
-			height: options.height,
+			width: (options.width)*.7,
+			height: (options.height)*.7,
 			boundWidth: Math.min(options.width, width),
 			boundHeight: Math.min(options.height, height)
 		});
