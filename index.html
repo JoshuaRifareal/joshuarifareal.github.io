@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="extras/jquery-ui-1.8.20.custom.min.js"></script>
 	<script type="text/javascript" src="extras/modernizr.2.5.3.min.js"></script>
 	<script type="text/javascript" src="lib/hash.js"></script>
+	<script type="text/javascript" src="js/helptips.js"></script>
 
 	<style>
 		.magazine:after { 
@@ -46,11 +47,24 @@
 
 	</div>
 
+	<div class="welcome-message">
+		<div>
+			<!-- Hello! -->
+		</div>
+	</div>
+
+	<div class="awesome-message">
+		<div>
+			Awesome!
+		</div>
+	</div>
+
 	<script type="text/javascript">
 
 		function loadApp() {
 
 			$('#canvas').fadeIn(1000);
+			welcomeMessage(8000);
 
 			var flipbook = $('.magazine');
 
@@ -97,6 +111,12 @@
 						
 						first: function(event, page, view) {
 							$('<style>.magazine:after { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
+						
+							welcomeMessage(8000);
+							$('.welcome-message').css('display', 'flex');
+							$('.welcome-message > div').fadeIn(1000);
+
+							$('.awesome-message').css('visibility', 'hidden');
 						},
 						pressed: function(event, page, view) {
 							console.log("pressed ", $(this).turn('view'), " at ", page.corner)
@@ -143,8 +163,17 @@
 								$(this).turn('peel', 'br');
 							}
 
+							if (page==2) {
+								$('.awesome-message > div').fadeIn(1000);
+								$('.awesome-message').css('visibility', 'visible');
+								awesomeMessageHide(1500);
+							}
+
 							if (page!=1) {
 								$('<style>.magazine:after { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
+
+								$('.welcome-message > div').fadeOut(0);
+								stopWelcomeMessage();
 							}
 							if (page!=$(this).turn('pages')) {
 								$('<style>.magazine:before { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
@@ -426,7 +455,6 @@
 
 
 		// Load the HTML4 version if there's not CSS transform
-
 		yepnope({
 			test : Modernizr.csstransforms,
 			yep: ['../../lib/turn.js'],
@@ -435,9 +463,6 @@
 			both: ['../../lib/zoom.min.js', 'css/jquery.ui.css', 'js/magazine.js', 'css/magazine.css'],
 			complete: loadApp
 		});
-
-		// Load minimum JQuery if latest not available
-
 
 	</script>
 

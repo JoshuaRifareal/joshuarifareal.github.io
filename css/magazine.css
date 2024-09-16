@@ -368,19 +368,29 @@ body{
 	float:left;
 }
 
-.exit-message{
+.exit-message, .welcome-message, .awesome-message{
 	position: absolute;
+	display: flex;
 	top:10px;
 	left:0;
 	width:100%;
 	height:40px;
 	z-index:10000;
+
+	animation: fadeIn 1s;
+	visibility: visible;
 }
 
-.exit-message > div{
-	width:140px;
+@keyframes fadeIn {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+.exit-message > div, .welcome-message > div, .awesome-message > div{
+	display: inline-block; 
 	height:30px;
 	margin:auto;
+	padding: 0 20px;
 	background:rgba(0,0,0,0.5);
 	text-align:center;
 	font:12px arial;
@@ -391,6 +401,15 @@ body{
 	-ms-border-radius:10px;
 	-o-border-radius:10px;
 	border-radius:10px;
+}
+
+.awesome-message {
+	visibility: hidden;
+	z-index:20000;
+
+	& > div {
+		background:rgba(48, 204, 0, 0.5);
+	}
 }
 
 .zoom-icon{

@@ -1,6 +1,7 @@
 
 $('*').attr('draggable', false);
 
+
 function addPage(page, book) {
 
 	var id, pages = book.turn('pages');
