@@ -1,6 +1,6 @@
 body{
 	overflow:hidden;
-	background-color:#252729;
+	background-color:#515558;
 	/* background-color:#c0c0c0; */
 	margin:0;
 	padding:0;
@@ -143,8 +143,8 @@ body{
 	width:22px;
 	height:22px;
 	position:absolute;
-	top:280px;
-	left:219px;
+	top:50%;
+	left:50%;
 }
 
 .magazine-viewport .shadow{
@@ -368,7 +368,7 @@ body{
 	float:left;
 }
 
-.exit-message, .welcome-message, .awesome-message{
+.exit-message, .welcome-message, .awesome-message, .zoomhow-message, .zoomesc-message{
 	position: absolute;
 	display: flex;
 	top:10px;
@@ -386,16 +386,18 @@ body{
 	100% { opacity: 1; }
 }
 
-.exit-message > div, .welcome-message > div, .awesome-message > div{
+.exit-message > div, .welcome-message > div, .awesome-message > div, .zoomhow-message > div, .zoomesc-message > div {
 	display: inline-block; 
 	height:30px;
 	margin:auto;
-	padding: 0 20px;
-	background:rgba(0,0,0,0.5);
+	padding: 0 10px;
+	/* background:rgb(66, 66, 66); */
+	background: #0077ff;
 	text-align:center;
 	font:12px arial;
 	line-height:30px;
 	color:white;
+	border: none;
 	-webkit-border-radius:10px;
 	-moz-border-radius:10px;
 	-ms-border-radius:10px;
@@ -403,13 +405,13 @@ body{
 	border-radius:10px;
 }
 
-.awesome-message {
+.awesome-message, .zoomhow-message, .zoomesc-message {
 	visibility: hidden;
 	z-index:20000;
+}
 
-	& > div {
-		background:rgba(48, 204, 0, 0.5);
-	}
+.awesome-message > div {
+	background:rgb(41, 175, 0);
 }
 
 .zoom-icon{

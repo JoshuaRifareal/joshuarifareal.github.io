@@ -47,23 +47,17 @@
 
 	</div>
 
-	<div class="welcome-message">
-		<div>
-			<!-- Hello! -->
-		</div>
-	</div>
-
-	<div class="awesome-message">
-		<div>
-			Awesome!
-		</div>
-	</div>
+	<div class="welcome-message"><div></div></div>
+	<div class="awesome-message"><div></div></div>
+	<div class="zoomhow-message"><div></div></div>
+	<div class="zoomesc-message"><div></div></div>
 
 	<script type="text/javascript">
 
 		function loadApp() {
 
 			$('#canvas').fadeIn(1000);
+			// Show welcome message
 			welcomeMessage(8000);
 
 			var flipbook = $('.magazine');
@@ -102,29 +96,25 @@
 					elevation: 100,
 
 					// The number of pages (specify if using slider)
-					pages: 14,
+					pages: 28,
 
 					// Events
 
 					when: {
 						// 'start', 'first', 'flip', 'last', 'pressed','released', 'end'
-						
 						first: function(event, page, view) {
 							$('<style>.magazine:after { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
 						
-							welcomeMessage(8000);
-							$('.welcome-message').css('display', 'flex');
-							$('.welcome-message > div').fadeIn(1000);
-
-							$('.awesome-message').css('visibility', 'hidden');
+							// Show welcome and hide awesome
+							welcomeMessage(3000);
 						},
 						pressed: function(event, page, view) {
-							console.log("pressed ", $(this).turn('view'), " at ", page.corner)
+							// console.log("pressed ", $(this).turn('view'), " at ", page.corner)
 							
 							if ( $(this).turn('view')[0] == 2 && page.corner == "bl") {
 								$('<style>.magazine:after { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
 							}
-							if ( $(this).turn('view')[1] ==  $(this).turn('pages') - 1 && page.corner == "br" ) {
+							if ( $(this).turn('view')[1] == $(this).turn('pages') - 1 && page.corner == "br" ) {
 								$('<style>.magazine:before { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
 							}
 						},
@@ -150,7 +140,6 @@
 							// Show and hide navigation buttons
 							disableControls(page);
 						},
-
 						turned: function(event, page, view) {
 							
 							disableControls(page);
@@ -164,18 +153,24 @@
 							}
 
 							if (page==2) {
-								$('.awesome-message > div').fadeIn(1000);
-								$('.awesome-message').css('visibility', 'visible');
-								awesomeMessageHide(1500);
+								awesomeMessageShow(500);
+								awesomeMessageHide(3000, 500);
+							}
+
+							if (page==4) {
+								zoomMessageShow(500);
+								zoomMessageHide(5000, 500);
 							}
 
 							if (page!=1) {
 								$('<style>.magazine:after { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
 
 								$('.welcome-message > div').fadeOut(0);
-								stopWelcomeMessage();
 							}
 							if (page!=$(this).turn('pages')) {
+								$('<style>.magazine:before { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
+							}
+							if (page==($(this).turn('pages')-1) || page==($(this).turn('pages')-2)) {
 								$('<style>.magazine:before { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
 							}
 						},
@@ -233,23 +228,13 @@
 						$('.magazine').removeClass('animated').addClass('zoom-in');
 						$('.zoom-icon').removeClass('zoom-icon-in').addClass('zoom-icon-out');
 						
-						if (!window.escTip && !$.isTouch) {
-							escTip = true;
-
-							$('<div />', {'class': 'exit-message'}).
-								html('<div>Press ESC to exit</div>').
-									appendTo($('body')).
-									delay(2000).
-									animate({opacity:0}, 500, function() {
-										$(this).remove();
-									});
-						}
+						zoomEscapeShow(500);
+						console.log("zoomed in")
 					},
 
 					zoomOut: function () {
 
 						$('#slider-bar').fadeIn();
-						$('.exit-message').hide();
 						$('.made').fadeIn();
 						$('.zoom-icon').removeClass('zoom-icon-out').addClass('zoom-icon-in');
 
@@ -258,6 +243,8 @@
 							resizeViewport();
 						}, 0);
 
+						zoomEscapeHide(500)
+						console.log("zoomed out")	
 					}
 				}
 			});
