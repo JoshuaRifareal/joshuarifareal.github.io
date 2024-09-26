@@ -1,5 +1,9 @@
 let welcomeIntervalId;
 
+$(document).ready(function() {
+    $('.restart-button > div').text("Restart");
+});
+
 function welcomeMessage(changeTime, fadeInTime) {
     $('.welcome-message > div').fadeIn(fadeInTime);
     $('.awesome-message').css('visibility', 'hidden');
@@ -43,7 +47,7 @@ function awesomeMessageHide(delayTime, fadeOutTime) {
 function zoomMessageShow(time) {
     $('.awesome-message').css('visibility', 'hidden');
     $('.zoomhow-message').css('visibility', 'visible');
-    $('.zoomhow-message > div').text("Click anywhere to zoom into details! 🔍");
+    $('.zoomhow-message > div').text("Click anywhere to zoom into details! 👀");
     $('.zoomhow-message > div').fadeIn(time);
 }
 
@@ -69,3 +73,4 @@ function zoomEscapeShow(time) {
 function zoomEscapeHide(time) {
     $('.zoomesc-message > div').fadeOut(time);
 }
+
