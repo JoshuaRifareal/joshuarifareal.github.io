@@ -55,6 +55,7 @@
 	<div class="awesome-message"><div></div></div>
 	<div class="zoomhow-message"><div></div></div>
 	<div class="zoomesc-message"><div></div></div>
+	<div class="outro-message"><div></div></div>
 
 	<script type="text/javascript">
 
@@ -100,7 +101,7 @@
 					elevation: 100,
 
 					// The number of pages (specify if using slider)
-					pages: 30,
+					pages: 34,
 
 					acceleration: true,
 
@@ -166,6 +167,13 @@
 							if (page==4) {
 								zoomMessageShow(500);
 								zoomMessageHide(5000, 500);
+								outroMessageHide(500);
+							}
+
+							if (page==32 || page==33) {
+								outroMessageShow(500);
+							} else if (page!=32) {
+								outroMessageHide(250);
 							}
 
 							if (page!=1) {
@@ -236,6 +244,8 @@
 						
 						zoomEscapeShow(500);
 						console.log("zoomed in")
+
+						outroMessageHide(500);
 					},
 
 					zoomOut: function () {
@@ -250,7 +260,7 @@
 						}, 0);
 
 						zoomEscapeHide(500)
-						console.log("zoomed out")	
+						console.log("zoomed out")
 					}
 				}
 			});

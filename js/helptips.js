@@ -2,6 +2,10 @@ let welcomeIntervalId;
 
 $(document).ready(function() {
     $('.restart-button > div').text("Restart");
+
+    $('.restart-button').on('click', function() {
+        $('.magazine').turn('page', 1);
+    });
 });
 
 function welcomeMessage(changeTime, fadeInTime) {
@@ -72,5 +76,16 @@ function zoomEscapeShow(time) {
 
 function zoomEscapeHide(time) {
     $('.zoomesc-message > div').fadeOut(time);
+}
+
+function outroMessageShow(time) {
+    // Hide other messages
+    $('.outro-message').css('visibility', 'visible');
+    $('.outro-message > div').text("Send me a message! 🤘");
+    $('.outro-message > div').fadeIn(time);
+}
+
+function outroMessageHide(time) {
+    $('.outro-message > div').fadeOut(time);
 }
 
