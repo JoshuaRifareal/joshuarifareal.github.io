@@ -81,7 +81,7 @@ function zoomEscapeHide(time) {
 function outroMessageShow(time) {
     // Hide other messages
     $('.outro-message').css('visibility', 'visible');
-    $('.outro-message > div').text("Send me a message! 🤘");
+    $('.outro-message > div').html("Send me a message! 🤘 <button class='message-button' onclick=\"window.open('https://mail.google.com/mail/?view=cm&fs=1&to=joshuamorata.rifareal@bicol-u.edu.ph&su=ARCHITECTURAL APPRENTICE', '_blank');\">Message</button>");
     $('.outro-message > div').fadeIn(time);
 }
 
