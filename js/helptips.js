@@ -51,7 +51,7 @@ function awesomeMessageHide(delayTime, fadeOutTime) {
 function zoomMessageShow(time) {
     $('.awesome-message').css('visibility', 'hidden');
     $('.zoomhow-message').css('visibility', 'visible');
-    $('.zoomhow-message > div').text("Click anywhere to zoom into details! 👀");
+    $('.zoomhow-message > div').text("Click anywhere to zoom in to details! 👀");
     $('.zoomhow-message > div').fadeIn(time);
 }
 
