@@ -2,9 +2,17 @@ let welcomeIntervalId;
 
 $(document).ready(function() {
     $('.restart-button > div').text("Restart");
-
     $('.restart-button').on('click', function() {
         $('.magazine').turn('page', 1);
+    });
+
+    $('.download-button > div').text("Download Portfolio + CV");
+    $('.download-button').on('click', function() {
+        const file1 = 'https://raw.githubusercontent.com/username/repository/branch/folder/file1.pdf';
+        const file2 = 'https://raw.githubusercontent.com/username/repository/branch/folder/file2.pdf';
+
+        $('<a>').attr('href', file1).attr('download', '').appendTo('body').get(0).click();
+        $('<a>').attr('href', file2).attr('download', '').appendTo('body').get(0).click();
     });
 });
 
