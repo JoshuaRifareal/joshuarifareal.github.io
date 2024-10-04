@@ -8,13 +8,20 @@ $(document).ready(function() {
 
     $('.download-button > div').text("Download Portfolio + CV");
     $('.download-button').on('click', function() {
-        const file1 = 'https://raw.githubusercontent.com/username/repository/branch/folder/file1.pdf';
-        const file2 = 'https://raw.githubusercontent.com/username/repository/branch/folder/file2.pdf';
+        const pfolio = 'https://raw.githubusercontent.com/JoshuaRifareal/joshuarifareal.github.io/b22880801a43e812cbf63c31e6e00583ed2f2adc/docs/Joshua%20Rifareal%20-%20Architectural%20Portfolio.pdf';
+        const curric = 'https://raw.githubusercontent.com/JoshuaRifareal/joshuarifareal.github.io/b22880801a43e812cbf63c31e6e00583ed2f2adc/docs/Joshua%20Rifareal%20-%20Curriculum%20Vitae.pdf';
 
-        $('<a>').attr('href', file1).attr('download', '').appendTo('body').get(0).click();
-        $('<a>').attr('href', file2).attr('download', '').appendTo('body').get(0).click();
+        function downloadFile(file) {
+            $('<a>').attr('href', file).attr('download', '').appendTo('body').get(0).click();
+        }
+      
+        downloadFile(pfolio);
+
+        setTimeout(function() {
+            downloadFile(curric);
+        }, 1000);
     });
-});
+})
 
 function welcomeMessage(changeTime, fadeInTime) {
     $('.welcome-message > div').fadeIn(fadeInTime);
