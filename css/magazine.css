@@ -25,11 +25,6 @@ body{
 		background-color: #0077ff;
 		cursor: pointer;
 	}
-
-	& ::before {
-		content: "\2B07";
-		margin-right: 8px;
-	}
 }
 
 .restart-button {
@@ -58,6 +53,16 @@ body{
 		content: "\21BA";
 		margin-right: 8px;
 	}
+}
+
+.developer-credits {
+	font: 11px arial;
+	color: rgba(0, 0, 0, 0.8);
+	padding: 5px 10px;
+	z-index: 99999999;
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
 }
 
 .magazine-viewport {

@@ -6,20 +6,9 @@ $(document).ready(function() {
         $('.magazine').turn('page', 1);
     });
 
-    $('.download-button > div').text("Download Portfolio + CV");
+    $('.download-button > div').text("Download as PDF");
     $('.download-button').on('click', function() {
-        const pfolio = 'https://raw.githubusercontent.com/JoshuaRifareal/joshuarifareal.github.io/b22880801a43e812cbf63c31e6e00583ed2f2adc/docs/Joshua%20Rifareal%20-%20Architectural%20Portfolio.pdf';
-        const curric = 'https://raw.githubusercontent.com/JoshuaRifareal/joshuarifareal.github.io/b22880801a43e812cbf63c31e6e00583ed2f2adc/docs/Joshua%20Rifareal%20-%20Curriculum%20Vitae.pdf';
-
-        function downloadFile(file) {
-            $('<a>').attr('href', file).attr('download', '').appendTo('body').get(0).click();
-        }
-      
-        downloadFile(pfolio);
-
-        setTimeout(function() {
-            downloadFile(curric);
-        }, 1000);
+        window.open('https://drive.google.com/file/d/1Iw6LN-kJehCR0n-ejHx4kZicz-nmrEK-/view?usp=drive_link', '_blank');
     });
 })
 
