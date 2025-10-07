@@ -35,11 +35,10 @@
 		<div class="magazine-viewport">
 			<div class="container" draggable="false">
 				<div class="magazine" draggable="false">
-					<!-- Next button -->
-					<!-- <div ignore="1" class="next-button"></div> -->
-					<!-- Previous button -->
-					<!-- <div ignore="1" class="previous-button"></div> -->
-				
+					<!-- Next button
+					<div ignore="1" class="next-button"></div>
+					Previous button
+					<div ignore="1" class="previous-button"></div> -->
 				</div>
 			</div>
 			<!-- <div class="bottom">
@@ -104,7 +103,7 @@
 					elevation: 100,
 
 					// The number of pages (specify if using slider)
-					pages: 42,
+					pages: 44,
 
 					acceleration: true,
 
@@ -160,6 +159,7 @@
 
 							if (page==1) { 
 								$(this).turn('peel', 'br');
+								welcomeMessage(3000);
 							}
 
 							if (page==2) {
@@ -167,15 +167,18 @@
 								awesomeMessageHide(3000, 500);
 							}
 
-							if (page==4 || page==22 || page==23 || page==24) {
-								zoomMessageShow(500);
-								zoomMessageHide(5000, 500);
+							if (page==4 || page==22 || page==23 || page==30 || page==31) {
+								zoomMessageShow(3000, 500);
 								outroMessageHide(250);
+							} 
+							
+							if (page==5 || page==24 || page==32 ) {
+								zoomMessageHide(500, 500);
 							}
 
-							if (page==40 || page==41 || page==42) {
+							if (page==42 || page==43 || page==44) {
 								outroMessageShow(500);
-							} else if (page!=32) {
+							} else {
 								outroMessageHide(250);
 							}
 

@@ -191,7 +191,7 @@ body{
 .magazine-viewport .zoom-in .even .gradient,
 .magazine-viewport .zoom-in .odd .gradient{
 
-	display:none;
+	/* display:none; */
 
 }
 

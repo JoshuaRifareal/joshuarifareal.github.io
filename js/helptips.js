@@ -1,4 +1,5 @@
 let welcomeIntervalId;
+let zoomIntervalId;
 
 $(document).ready(function() {
     $('.restart-button > div').text("Restart");
@@ -52,11 +53,27 @@ function awesomeMessageHide(delayTime, fadeOutTime) {
     setInterval(hideMessage, delayTime);
 }
 
-function zoomMessageShow(time) {
+function zoomMessageShow(changeTime, fadeInTime) {
     $('.awesome-message').css('visibility', 'hidden');
+
+    $('.zoomhow-message > div').fadeIn(fadeInTime);
     $('.zoomhow-message').css('visibility', 'visible');
-    $('.zoomhow-message > div').text("Click anywhere to zoom in to details! 👀");
-    $('.zoomhow-message > div').fadeIn(time);
+
+    // Array of messages to display
+	const messages = [
+		"Click anywhere to zoom in to details! 👀",
+		"Check out the details by clicking on them! 🔍",
+		"You can zoom in and out by clicking! 👇",
+	];
+
+    let index = 0;
+	function updateMessage() {
+	  $('.zoomhow-message > div').text(messages[index]);
+	  index = (index + 1) % messages.length;
+	}
+
+    updateMessage();
+    zoomIntervalId = setInterval(updateMessage, changeTime);
 }
 
 function zoomMessageHide(delayTime, fadeOutTime) {
@@ -74,7 +91,7 @@ function zoomEscapeShow(time) {
 
 
     $('.zoomesc-message').css('visibility', 'visible');
-    $('.zoomesc-message > div').text("Press ESC or click again to zoom out.");
+    $('.zoomesc-message > div').text("Click and drag to navigate. Press ESC or click again to zoom out.");
     $('.zoomesc-message > div').fadeIn(time);
 }
 
@@ -85,7 +102,7 @@ function zoomEscapeHide(time) {
 function outroMessageShow(time) {
     // Hide other messages
     $('.outro-message').css('visibility', 'visible');
-    $('.outro-message > div').html("Send me a message! 🤘 <button class='message-button' onclick=\"window.open('https://mail.google.com/mail/?view=cm&fs=1&to=joshuamorata.rifareal@bicol-u.edu.ph&su=ARCHITECTURAL APPRENTICE', '_blank');\">Message</button>");
+    $('.outro-message > div').html("Send me a message! 🤘 <button class='message-button' onclick=\"window.open('https://mail.google.com/mail/?view=cm&fs=1&to=joshuamorata.rifareal@bicol-u.edu.ph&su=JUNIOR ARCHITECT', '_blank');\">Message</button>");
     $('.outro-message > div').fadeIn(time);
 }
 
