@@ -7,7 +7,8 @@
 	<meta name="description" property="og:description" content="A collection of selected architectural works by Joshua Rifareal">
 	<meta name="image" property="og:image" content="https://raw.githubusercontent.com/JoshuaRifareal/joshuarifareal.github.io/refs/heads/main/pics/preview.png">
 	<link rel="icon" type="image/png" href="pics/JRE Logo Light.ico" />
-	
+	<link rel="stylesheet" href="css/preload.css" />
+
 	<script type="text/javascript" src="extras/jquery.min.1.7.js"></script>
 	<script type="text/javascript" src="extras/jquery-ui-1.8.20.custom.min.js"></script>
 	<script type="text/javascript" src="extras/modernizr.2.5.3.min.js"></script>
@@ -61,8 +62,98 @@
 
 	<script type="text/javascript">
 
-		function loadApp() {
+		// === NEW PRELOAD FUNCTION ===
+		function preloadAllImages() {
+			const totalPages = 44; // From your turn.js config
+			let loadedCount = 0;
+			let hasErrors = false;
+			
+			// Create progress UI
+			const progressContainer = $('<div class="preload-overlay"></div>');
+			const progressBarContainer = $('<div class="preload-progress-bar-container"></div>');
+			const progressBar = $('<div class="preload-progress-bar"></div>');
+			const progressText = $('<div class="preload-text">Loading portfolio... 0%</div>');
+			const progressSubtext = $('<div class="preload-subtext">Preparing high-resolution images</div>');
+			
+			progressBarContainer.append(progressBar);
+			progressContainer.append(progressBarContainer, progressText, progressSubtext);
+			$('body').prepend(progressContainer);
+			
+			// Preload all page images
+			for (let page = 1; page <= totalPages; page++) {
+				const img = new Image();
+				img.src = `content/Frame ${page}.jpg`;
+				
+				img.onload = function() {
+					loadedCount++;
+					const progress = Math.round((loadedCount / totalPages) * 100);
+					
+					// Update progress UI
+					progressBar.css('width', progress + '%');
+					progressText.text(`Loading portfolio... ${progress}%`);
+					
+					// Preload large versions for zoom (if they exist)
+					const largeImg = new Image();
+					largeImg.src = `content/Frame ${page}-large.jpg`;
+					
+					// Check if all images are loaded
+					if (loadedCount === totalPages) {
+						setTimeout(() => {
+							progressContainer.fadeOut(500, function() {
+								$(this).remove();
+								// Start the main application
+								if (typeof loadApp === 'function') {
+									loadApp();
+								}
+							});
+						}, 500);
+					}
+				};
+				
+				img.onerror = function() {
+					loadedCount++; // Count errors as loaded to avoid hanging
+					hasErrors = true;
+					console.warn(`Failed to load image for page ${page}`);
+					
+					// Update progress even on error
+					const progress = Math.round((loadedCount / totalPages) * 100);
+					progressBar.css('width', progress + '%');
+					progressText.text(`Loading portfolio... ${progress}%`);
+					
+					if (loadedCount === totalPages) {
+						setTimeout(() => {
+							progressContainer.fadeOut(500, function() {
+								$(this).remove();
+								if (typeof loadApp === 'function') {
+									loadApp();
+								}
+							});
+						}, 500);
+					}
+				};
+			}
+		}
 
+		// === MODIFIED LOAD SEQUENCE ===
+		$(document).ready(function() {
+			// Start preloading immediately when page loads
+			preloadAllImages();
+			
+			// Load dependencies while images preload
+			yepnope({
+				test: Modernizr.csstransforms,
+				yep: ['../../lib/turn.js'],
+				nope: ['../../lib/turn.html4.min.js', 'css/jquery.ui.html4.css'],
+				both: ['../../lib/zoom.min.js', 'css/jquery.ui.css', 'js/magazine.js', 'css/magazine.css'],
+				complete: function() {
+					// loadApp() will be called from preload completion
+					console.log('Dependencies loaded, waiting for images...');
+				}
+			});
+		});
+
+		// === KEEP YOUR EXISTING loadApp FUNCTION AS IS ===
+		function loadApp() {
 			$('#canvas').fadeIn(1000);
 			// Show welcome message
 			welcomeMessage(8000);
@@ -79,374 +170,373 @@
 			// Create the flipbook
 
 			flipbook.turn({
-					
-					width: 1660,
-					// width: 922,
+						
+						width: 1660,
+						// width: 922,
 
-					height: 1170,
-					// height: 600,
+						height: 1170,
+						// height: 600,
 
-					// Duration in millisecond
+						// Duration in millisecond
 
-					duration: 1000,
+						duration: 1000,
 
-					// Enables gradients
+						// Enables gradients
 
-					gradients: true,
-					
-					// Auto center this flipbook
+						gradients: true,
+						
+						// Auto center this flipbook
 
-					autoCenter: true,
+						autoCenter: true,
 
-					// Elevation from the edge of the flipbook when turning a page
+						// Elevation from the edge of the flipbook when turning a page
 
-					elevation: 100,
+						elevation: 100,
 
-					// The number of pages (specify if using slider)
-					pages: 44,
+						// The number of pages (specify if using slider)
+						pages: 44,
 
-					acceleration: true,
+						acceleration: true,
 
-					// Events
+						// Events
+
+						when: {
+							// 'start', 'first', 'flip', 'last', 'pressed','released', 'end'
+							first: function(event, page, view) {
+								$('<style>.magazine:after { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
+							
+								// Show welcome and hide awesome
+								welcomeMessage(3000);
+							},
+							pressed: function(event, page, view) {
+								// console.log("pressed ", $(this).turn('view'), " at ", page.corner)
+								
+								if ( $(this).turn('view')[0] == 2 && page.corner == "bl") {
+									$('<style>.magazine:after { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
+								}
+								if ( $(this).turn('view')[1] == $(this).turn('pages') - 1 && page.corner == "br" ) {
+									$('<style>.magazine:before { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
+								}
+							},
+							released: function(event, page, view) {
+								console.log("released ", $(this).turn('view'), " at ", page.corner)
+								
+								if ( $(this).turn('view')[0] == 2 && page.corner == "bl" ) {
+									$('<style>.magazine:after { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
+								}
+								if ( $(this).turn('view')[1] ==  $(this).turn('pages') - 1 && page.corner == "br" ) {
+									$('<style>.magazine:before { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
+								}
+							},
+							turning: function(event, page, view) {
+								
+								var book = $(this),
+								currentPage = book.turn('page'),
+								pages = book.turn('pages');
+						
+								// Update the current URI
+								Hash.go('page/' + page).update();
+
+								// Show and hide navigation buttons
+								disableControls(page);
+							},
+							turned: function(event, page, view) {
+								
+								disableControls(page);
+
+								$(this).turn('center');
+
+								$('#slider').slider('value', getViewNumber($(this), page));
+
+								if (page==1) { 
+									$(this).turn('peel', 'br');
+									welcomeMessage(3000);
+								}
+
+								if (page==2) {
+									awesomeMessageShow(500);
+									awesomeMessageHide(3000, 500);
+								}
+
+								if (page==4 || page==22 || page==23 || page==30 || page==31) {
+									zoomMessageShow(3000, 500);
+									outroMessageHide(250);
+								} 
+								
+								if (page==5 || page==6 || page==24 || page==32 ) {
+									zoomMessageHide(500, 500);
+								}
+
+								if (page==42 || page==43 || page==44) {
+									outroMessageShow(500);
+								} else {
+									outroMessageHide(250);
+								}
+
+								if (page!=1) {
+									$('<style>.magazine:after { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
+
+									$('.welcome-message > div').fadeOut(0);
+								}
+								if (page!=$(this).turn('pages')) {
+									$('<style>.magazine:before { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
+								}
+								if (page==($(this).turn('pages')-1) || page==($(this).turn('pages')-2)) {
+									$('<style>.magazine:before { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
+								}
+							},
+							last: function(event, page, view) {
+								$('<style>.magazine:before { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
+							},
+							missing: function (event, pages) {
+
+								// Add pages that aren't in the magazine
+
+								for (var i = 0; i < pages.length; i++)
+									addPage(pages[i], $(this));
+
+							}
+						}
+				});
+
+				// Zoom.js
+
+				$('.magazine-viewport').zoom({
+					flipbook: $('.magazine'),
+
+					max: function() { 
+						
+						return largeMagazineWidth()/$('.magazine').width();
+
+					}, 
 
 					when: {
-						// 'start', 'first', 'flip', 'last', 'pressed','released', 'end'
-						first: function(event, page, view) {
-							$('<style>.magazine:after { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
-						
-							// Show welcome and hide awesome
-							welcomeMessage(3000);
+						swipeLeft: function() {
+
+							$(this).zoom('flipbook').turn('next');
+
 						},
-						pressed: function(event, page, view) {
-							// console.log("pressed ", $(this).turn('view'), " at ", page.corner)
+
+						swipeRight: function() {
 							
-							if ( $(this).turn('view')[0] == 2 && page.corner == "bl") {
-								$('<style>.magazine:after { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
-							}
-							if ( $(this).turn('view')[1] == $(this).turn('pages') - 1 && page.corner == "br" ) {
-								$('<style>.magazine:before { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
-							}
+							$(this).zoom('flipbook').turn('previous');
+
 						},
-						released: function(event, page, view) {
-							console.log("released ", $(this).turn('view'), " at ", page.corner)
+
+						resize: function(event, scale, page, pageElement) {
+
+							if (scale==1)
+								loadSmallPage(page, pageElement);
+							else
+								loadLargePage(page, pageElement);
+
+						},
+
+						zoomIn: function () {
+
+							$('#slider-bar').hide();
+							$('.made').hide();
+							$('.magazine').removeClass('animated').addClass('zoom-in');
+							$('.zoom-icon').removeClass('zoom-icon-in').addClass('zoom-icon-out');
 							
-							if ( $(this).turn('view')[0] == 2 && page.corner == "bl" ) {
-								$('<style>.magazine:after { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
-							}
-							if ( $(this).turn('view')[1] ==  $(this).turn('pages') - 1 && page.corner == "br" ) {
-								$('<style>.magazine:before { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
-							}
+							zoomEscapeShow(500);
+							console.log("zoomed in")
+
+							outroMessageHide(500);
 						},
-						turning: function(event, page, view) {
-							
-							var book = $(this),
-							currentPage = book.turn('page'),
-							pages = book.turn('pages');
-					
-							// Update the current URI
-							Hash.go('page/' + page).update();
 
-							// Show and hide navigation buttons
-							disableControls(page);
-						},
-						turned: function(event, page, view) {
-							
-							disableControls(page);
+						zoomOut: function () {
 
-							$(this).turn('center');
+							$('#slider-bar').fadeIn();
+							$('.made').fadeIn();
+							$('.zoom-icon').removeClass('zoom-icon-out').addClass('zoom-icon-in');
 
-							$('#slider').slider('value', getViewNumber($(this), page));
+							setTimeout(function(){
+								$('.magazine').addClass('animated').removeClass('zoom-in');
+								resizeViewport();
+							}, 0);
 
-							if (page==1) { 
-								$(this).turn('peel', 'br');
-								welcomeMessage(3000);
-							}
-
-							if (page==2) {
-								awesomeMessageShow(500);
-								awesomeMessageHide(3000, 500);
-							}
-
-							if (page==4 || page==22 || page==23 || page==30 || page==31) {
-								zoomMessageShow(3000, 500);
-								outroMessageHide(250);
-							} 
-							
-							if (page==5 || page==6 || page==24 || page==32 ) {
-								zoomMessageHide(500, 500);
-							}
-
-							if (page==42 || page==43 || page==44) {
-								outroMessageShow(500);
-							} else {
-								outroMessageHide(250);
-							}
-
-							if (page!=1) {
-								$('<style>.magazine:after { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
-
-								$('.welcome-message > div').fadeOut(0);
-							}
-							if (page!=$(this).turn('pages')) {
-								$('<style>.magazine:before { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
-							}
-							if (page==($(this).turn('pages')-1) || page==($(this).turn('pages')-2)) {
-								$('<style>.magazine:before { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
-							}
-						},
-						last: function(event, page, view) {
-							$('<style>.magazine:before { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
-						},
-						missing: function (event, pages) {
-
-							// Add pages that aren't in the magazine
-
-							for (var i = 0; i < pages.length; i++)
-								addPage(pages[i], $(this));
-
+							zoomEscapeHide(500)
+							console.log("zoomed out")
 						}
 					}
-			});
+				});
 
-			// Zoom.js
+				// Zoom event
 
-			$('.magazine-viewport').zoom({
-				flipbook: $('.magazine'),
+				if ($.isTouch)
+					$('.magazine-viewport').bind('zoom.doubleTap', zoomTo);
+				else
+					$('.magazine-viewport').bind('zoom.tap', zoomTo);
 
-				max: function() { 
-					
-					return largeMagazineWidth()/$('.magazine').width();
 
-				}, 
+				// Using arrow keys to turn the page
 
-				when: {
-					swipeLeft: function() {
+				$(document).keydown(function(e){
 
-						$(this).zoom('flipbook').turn('next');
+					var previous = 37, // Left arrow key
+						next = 39,     // Right arrow key
+						esc = 27,      // Escape key
+						rKey = 82;     // R key
 
-					},
+					switch (e.keyCode) {
+						case previous:
 
-					swipeRight: function() {
-						
-						$(this).zoom('flipbook').turn('previous');
+							// Left arrow
+							$('.magazine').turn('previous');
+							e.preventDefault();
 
-					},
+						break;
+						case next:
 
-					resize: function(event, scale, page, pageElement) {
+							// Right arrow
+							$('.magazine').turn('next');
+							e.preventDefault();
 
-						if (scale==1)
-							loadSmallPage(page, pageElement);
-						else
-							loadLargePage(page, pageElement);
+						break;
+						case esc:
+							
+							// Escape key to zoom out
+							$('.magazine-viewport').zoom('zoomOut');    
+							e.preventDefault();
 
-					},
+						break;
+						case rKey:
 
-					zoomIn: function () {
+							// R key to turn to page 1
+							$('.magazine').turn('page', 1);
+							e.preventDefault();
 
-						$('#slider-bar').hide();
-						$('.made').hide();
-						$('.magazine').removeClass('animated').addClass('zoom-in');
-						$('.zoom-icon').removeClass('zoom-icon-in').addClass('zoom-icon-out');
-						
-						zoomEscapeShow(500);
-						console.log("zoomed in")
-
-						outroMessageHide(500);
-					},
-
-					zoomOut: function () {
-
-						$('#slider-bar').fadeIn();
-						$('.made').fadeIn();
-						$('.zoom-icon').removeClass('zoom-icon-out').addClass('zoom-icon-in');
-
-						setTimeout(function(){
-							$('.magazine').addClass('animated').removeClass('zoom-in');
-							resizeViewport();
-						}, 0);
-
-						zoomEscapeHide(500)
-						console.log("zoomed out")
+						break;
 					}
-				}
-			});
-
-			// Zoom event
-
-			if ($.isTouch)
-				$('.magazine-viewport').bind('zoom.doubleTap', zoomTo);
-			else
-				$('.magazine-viewport').bind('zoom.tap', zoomTo);
+				});
 
 
-			// Using arrow keys to turn the page
+				// URIs - Format #/page/1 
 
-			$(document).keydown(function(e){
+				Hash.on('^page\/([0-9]*)$', {
+					yep: function(path, parts) {
+						var page = parts[1];
 
-				var previous = 37, // Left arrow key
-					next = 39,     // Right arrow key
-					esc = 27,      // Escape key
-					rKey = 82;     // R key
+						if (page!==undefined) {
+							if ($('.magazine').turn('is'))
+								$('.magazine').turn('page', page);
+						}
 
-				switch (e.keyCode) {
-					case previous:
+					},
+					nop: function(path) {
 
-						// Left arrow
-						$('.magazine').turn('previous');
-						e.preventDefault();
-
-					break;
-					case next:
-
-						// Right arrow
-						$('.magazine').turn('next');
-						e.preventDefault();
-
-					break;
-					case esc:
-						
-						// Escape key to zoom out
-						$('.magazine-viewport').zoom('zoomOut');    
-						e.preventDefault();
-
-					break;
-					case rKey:
-
-						// R key to turn to page 1
-						$('.magazine').turn('page', 1);
-						e.preventDefault();
-
-					break;
-				}
-			});
-
-
-			// URIs - Format #/page/1 
-
-			Hash.on('^page\/([0-9]*)$', {
-				yep: function(path, parts) {
-					var page = parts[1];
-
-					if (page!==undefined) {
 						if ($('.magazine').turn('is'))
-							$('.magazine').turn('page', page);
+							$('.magazine').turn('page', 1);
 					}
+				});
 
-				},
-				nop: function(path) {
 
-					if ($('.magazine').turn('is'))
-						$('.magazine').turn('page', 1);
+				$(window).resize(function() {
+					resizeViewport();
+				}).bind('orientationchange', function() {
+					resizeViewport();
+				});
+
+				// Regions
+
+				if ($.isTouch) {
+					$('.magazine').bind('touchstart', regionClick);
+				} else {
+					$('.magazine').click(regionClick);
 				}
-			});
 
+				// Events for the next button
 
-			$(window).resize(function() {
-				resizeViewport();
-			}).bind('orientationchange', function() {
-				resizeViewport();
-			});
-
-			// Regions
-
-			if ($.isTouch) {
-				$('.magazine').bind('touchstart', regionClick);
-			} else {
-				$('.magazine').click(regionClick);
-			}
-
-			// Events for the next button
-
-			$('.next-button').bind($.mouseEvents.over, function() {
-				
-				$(this).addClass('next-button-hover');
-
-			}).bind($.mouseEvents.out, function() {
-				
-				$(this).removeClass('next-button-hover');
-
-			}).bind($.mouseEvents.down, function() {
-				
-				$(this).addClass('next-button-down');
-
-			}).bind($.mouseEvents.up, function() {
-				
-				$(this).removeClass('next-button-down');
-
-			}).click(function() {
-				
-				$('.magazine').turn('next');
-
-			});
-
-			// Events for the next button
-			
-			$('.previous-button').bind($.mouseEvents.over, function() {
-				
-				$(this).addClass('previous-button-hover');
-
-			}).bind($.mouseEvents.out, function() {
-				
-				$(this).removeClass('previous-button-hover');
-
-			}).bind($.mouseEvents.down, function() {
-				
-				$(this).addClass('previous-button-down');
-
-			}).bind($.mouseEvents.up, function() {
-				
-				$(this).removeClass('previous-button-down');
-
-			}).click(function() {
-				
-				$('.magazine').turn('previous');
-
-			});
-
-
-			// Slider
-
-			$( "#slider" ).slider({
-				min: 1,
-				max: numberOfViews(flipbook),
-
-				start: function(event, ui) {
-
-					if (!window._thumbPreview) {
-						_thumbPreview = $('<div />', {'class': 'thumbnail'}).html('<div></div>');
-						setPreview(ui.value);
-						_thumbPreview.appendTo($(ui.handle));
-					} else
-						setPreview(ui.value);
-
-					moveBar(false);
-
-				},
-
-				slide: function(event, ui) {
-
-					setPreview(ui.value);
-
-				},
-
-				stop: function() {
-
-					if (window._thumbPreview)
-						_thumbPreview.removeClass('show');
+				$('.next-button').bind($.mouseEvents.over, function() {
 					
-					$('.magazine').turn('page', Math.max(1, $(this).slider('value')*2 - 2));
+					$(this).addClass('next-button-hover');
 
-				}
-			});
+				}).bind($.mouseEvents.out, function() {
+					
+					$(this).removeClass('next-button-hover');
 
-			resizeViewport();
+				}).bind($.mouseEvents.down, function() {
+					
+					$(this).addClass('next-button-down');
 
-			$('.magazine').addClass('animated');
+				}).bind($.mouseEvents.up, function() {
+					
+					$(this).removeClass('next-button-down');
+
+				}).click(function() {
+					
+					$('.magazine').turn('next');
+
+				});
+
+				// Events for the next button
+				
+				$('.previous-button').bind($.mouseEvents.over, function() {
+					
+					$(this).addClass('previous-button-hover');
+
+				}).bind($.mouseEvents.out, function() {
+					
+					$(this).removeClass('previous-button-hover');
+
+				}).bind($.mouseEvents.down, function() {
+					
+					$(this).addClass('previous-button-down');
+
+				}).bind($.mouseEvents.up, function() {
+					
+					$(this).removeClass('previous-button-down');
+
+				}).click(function() {
+					
+					$('.magazine').turn('previous');
+
+				});
+
+
+				// Slider
+
+				$( "#slider" ).slider({
+					min: 1,
+					max: numberOfViews(flipbook),
+
+					start: function(event, ui) {
+
+						if (!window._thumbPreview) {
+							_thumbPreview = $('<div />', {'class': 'thumbnail'}).html('<div></div>');
+							setPreview(ui.value);
+							_thumbPreview.appendTo($(ui.handle));
+						} else
+							setPreview(ui.value);
+
+						moveBar(false);
+
+					},
+
+					slide: function(event, ui) {
+
+						setPreview(ui.value);
+
+					},
+
+					stop: function() {
+
+						if (window._thumbPreview)
+							_thumbPreview.removeClass('show');
+						
+						$('.magazine').turn('page', Math.max(1, $(this).slider('value')*2 - 2));
+
+					}
+				});
+
+				resizeViewport();
+
+				$('.magazine').addClass('animated');
 
 		}
 
-		// Zoom icon
-
+		// === KEEP ALL YOUR EXISTING FUNCTIONS BELOW ===
 		$('.zoom-icon').bind('mouseover', function() { 
 			
 			if ($(this).hasClass('zoom-icon-in'))
@@ -473,18 +563,6 @@
 		});
 
 		$('#canvas').hide();
-
-
-		// Load the HTML4 version if there's not CSS transform
-		yepnope({
-			test : Modernizr.csstransforms,
-			yep: ['../../lib/turn.js'],
-			// yep: ['../../lib/turn.min.js'],
-			nope: ['../../lib/turn.html4.min.js', 'css/jquery.ui.html4.css'],
-			both: ['../../lib/zoom.min.js', 'css/jquery.ui.css', 'js/magazine.js', 'css/magazine.css'],
-			complete: loadApp
-		});
-
 	</script>
 
 </body>

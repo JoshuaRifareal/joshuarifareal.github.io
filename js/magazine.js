@@ -23,35 +23,26 @@ function addPage(page, book) {
 }
 
 function loadPage(page, pageElement) {
+    // Create an image element
+    var img = $('<img />');
 
-	// Create an image element
+    img.mousedown(function(e) {
+        e.preventDefault();
+    });
 
-	var img = $('<img />');
+    img.load(function() {
+        // Set the size
+        $(this).css({width: '100%', height: '100%'});
+        // Add the image to the page after loaded
+        $(this).appendTo(pageElement);
+        // Remove the loader indicator
+        pageElement.find('.loader').remove();
+    });
 
-	img.mousedown(function(e) {
-		e.preventDefault();
-	});
+    // Load the page - browser should use cached version if preloaded
+    img.attr('src', 'content/Frame ' + page + '.jpg');
 
-	img.load(function() {
-		
-		// Set the size
-		$(this).css({width: '100%', height: '100%'});
-
-		// Add the image to the page after loaded
-
-		$(this).appendTo(pageElement);
-
-		// Remove the loader indicator
-		
-		pageElement.find('.loader').remove();
-	});
-
-	// Load the page
-
-	img.attr('src', 'content/Frame ' +  page + '.jpg');
-
-	loadRegions(page, pageElement);
-
+    loadRegions(page, pageElement);
 }
 
 // Zoom in / Zoom out
@@ -165,21 +156,17 @@ function processRegion(region, regionType) {
 // Load large page
 
 function loadLargePage(page, pageElement) {
-	
-	var img = $('<img />');
+    var img = $('<img />');
 
-	img.load(function() {
+    img.load(function() {
+        var prevImg = pageElement.find('img');
+        $(this).css({width: '100%', height: '100%'});
+        $(this).appendTo(pageElement);
+        prevImg.remove();
+    });
 
-		var prevImg = pageElement.find('img');
-		$(this).css({width: '100%', height: '100%'});
-		$(this).appendTo(pageElement);
-		prevImg.remove();
-		
-	});
-
-	// Loadnew page
-	
-	img.attr('src', 'content/Frame ' +  page + '-large.jpg');
+    // Load new page - browser should use cached version if preloaded
+    img.attr('src', 'content/Frame ' + page + '-large.jpg');
 }
 
 // Load small page
