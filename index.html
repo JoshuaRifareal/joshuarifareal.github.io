@@ -92,8 +92,8 @@
 					progressText.text(`Loading portfolio... ${progress}%`);
 					
 					// Preload large versions for zoom (if they exist)
-					const largeImg = new Image();
-					largeImg.src = `content/Frame ${page}-large.jpg`;
+					// const largeImg = new Image();
+					// largeImg.src = `content/Frame ${page}-large.jpg`;
 					
 					// Check if all images are loaded
 					if (loadedCount === totalPages) {
@@ -326,15 +326,6 @@
 
 						},
 
-						resize: function(event, scale, page, pageElement) {
-
-							if (scale==1)
-								loadSmallPage(page, pageElement);
-							else
-								loadLargePage(page, pageElement);
-
-						},
-
 						zoomIn: function () {
 
 							$('#slider-bar').hide();
@@ -441,13 +432,13 @@
 					resizeViewport();
 				});
 
-				// Regions
+				// // Regions
 
-				if ($.isTouch) {
-					$('.magazine').bind('touchstart', regionClick);
-				} else {
-					$('.magazine').click(regionClick);
-				}
+				// if ($.isTouch) {
+				// 	$('.magazine').bind('touchstart', regionClick);
+				// } else {
+				// 	$('.magazine').click(regionClick);
+				// }
 
 				// Events for the next button
 

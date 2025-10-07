@@ -42,7 +42,7 @@ function loadPage(page, pageElement) {
     // Load the page - browser should use cached version if preloaded
     img.attr('src', 'content/Frame ' + page + '.jpg');
 
-    loadRegions(page, pageElement);
+    // loadRegions(page, pageElement);
 }
 
 // Zoom in / Zoom out
@@ -69,54 +69,56 @@ function zoomTo(event) {
 
 function loadRegions(page, element) {
 
-	$.getJSON('content/Frame '+page+'-regions.json').
-		done(function(data) {
+	// $.getJSON('content/Frame '+page+'-regions.json').
+	// 	done(function(data) {
 
-			$.each(data, function(key, region) {
-				addRegion(region, element);
-			});
-		});
+	// 		$.each(data, function(key, region) {
+	// 			addRegion(region, element);
+	// 		});
+	// 	});
 }
 
 // Add region
 
 function addRegion(region, pageElement) {
 	
-	var reg = $('<div />', {'class': 'region  ' + region['class']}),
-		options = $('.magazine').turn('options'),
-		pageWidth = options.width/2,
-		pageHeight = options.height;
+	// var reg = $('<div />', {'class': 'region  ' + region['class']}),
+	// 	options = $('.magazine').turn('options'),
+	// 	pageWidth = options.width/2,
+	// 	pageHeight = options.height;
 
-	reg.css({
-		top: Math.round(region.y/pageHeight*100)+'%',
-		left: Math.round(region.x/pageWidth*100)+'%',
-		width: Math.round(region.width/pageWidth*100)+'%',
-		height: Math.round(region.height/pageHeight*100)+'%'
-	}).attr('region-data', $.param(region.data||''));
+	// reg.css({
+	// 	top: Math.round(region.y/pageHeight*100)+'%',
+	// 	left: Math.round(region.x/pageWidth*100)+'%',
+	// 	width: Math.round(region.width/pageWidth*100)+'%',
+	// 	height: Math.round(region.height/pageHeight*100)+'%'
+	// }).attr('region-data', $.param(region.data||''));
 
 
-	reg.appendTo(pageElement);
+	// reg.appendTo(pageElement);
 }
 
 // Process click on a region
 
 function regionClick(event) {
 
-	var region = $(event.target);
+	// var region = $(event.target);
 
-	if (region.hasClass('region')) {
+	// if (region.hasClass('region')) {
 
-		$('.magazine-viewport').data().regionClicked = true;
+	// 	$('.magazine-viewport').data().regionClicked = true;
 		
-		setTimeout(function() {
-			$('.magazine-viewport').data().regionClicked = false;
-		}, 100);
+	// 	setTimeout(function() {
+	// 		$('.magazine-viewport').data().regionClicked = false;
+	// 	}, 100);
 		
-		var regionType = $.trim(region.attr('class').replace('region', ''));
+	// 	var regionType = $.trim(region.attr('class').replace('region', ''));
 
-		return processRegion(region, regionType);
+	// 	return processRegion(region, regionType);
 
-	}
+	// }
+
+	return false;
 
 }
 
@@ -153,35 +155,6 @@ function processRegion(region, regionType) {
 
 }
 
-// Load large page
-
-function loadLargePage(page, pageElement) {
-    var img = $('<img />');
-
-    img.load(function() {
-        var prevImg = pageElement.find('img');
-        $(this).css({width: '100%', height: '100%'});
-        $(this).appendTo(pageElement);
-        prevImg.remove();
-    });
-
-    // Load new page - browser should use cached version if preloaded
-    img.attr('src', 'content/Frame ' + page + '-large.jpg');
-}
-
-// Load small page
-
-function loadSmallPage(page, pageElement) {
-	
-	var img = pageElement.find('img');
-
-	img.css({width: '100%', height: '100%'});
-
-	img.unbind('load');
-	// Loadnew page
-
-	img.attr('src', 'content/Frame ' +  page + '.jpg');
-}
 
 // http://code.google.com/p/chromium/issues/detail?id=128488
 
