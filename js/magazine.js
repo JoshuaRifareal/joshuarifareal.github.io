@@ -40,7 +40,7 @@ function loadPage(page, pageElement) {
     });
 
     // Load the page - browser should use cached version if preloaded
-    img.attr('src', 'content/Frame ' + page + '.jpg');
+    img.attr('src', 'content/Frame ' + page + '.webp');
 
     // loadRegions(page, pageElement);
 }
