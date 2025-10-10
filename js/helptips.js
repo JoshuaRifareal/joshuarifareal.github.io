@@ -14,7 +14,6 @@ $(document).ready(function() {
 })
 
 function welcomeMessage(changeTime, fadeInTime) {
-    $('.welcome-message > div').fadeIn(fadeInTime);
     $('.awesome-message').css('visibility', 'hidden');
 
 	// Array of messages to display
@@ -31,6 +30,7 @@ function welcomeMessage(changeTime, fadeInTime) {
 	}
 
     updateMessage();
+    $('.welcome-message > div').fadeIn(fadeInTime);
     welcomeIntervalId = setInterval(updateMessage, changeTime);
 };
 

@@ -444,9 +444,10 @@ body{
 	float:left;
 }
 
-.exit-message, .welcome-message,  .awesome-message, .zoomhow-message, .zoomesc-message, .outro-message{
+.messages {
 	position: absolute;
 	display: flex;
+	justify-content: center;
 	top:10px;
 	left:0;
 	width:100%;
