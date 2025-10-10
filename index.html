@@ -40,7 +40,12 @@
 
 		<div id="canvas">
 
-			<div class="download-button"><div></div></div>
+			<!-- <div class="logo"><img src="./pics/JRE Logo Light.ico" alt="">Joshua Rifareal</div> -->
+
+			<div class="action-bar">
+				<div class="download-button"><div></div></div>
+				<div class="restart-button"><div></div></div>
+			</div>
 
 			<div class="magazine-viewport">
 				<div class="container" draggable="false">
@@ -49,7 +54,6 @@
 				</div>
 			</div>
 
-			<div class="restart-button"><div></div></div>
 			<!-- <div class="developer-credits">Website designed and developed by <a href="https://github.com/JoshuaRifareal">Joshua Rifareal</a></div> -->
 
 		</div>
@@ -91,7 +95,8 @@
 					'color': 'white',
 					'z-index': '100000',
 					'font-family': 'Arial, sans-serif',
-					'display': 'none'
+					'display': 'none',
+					'user-select': 'none'
 				});
 				
 				content.css({

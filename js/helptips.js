@@ -7,7 +7,7 @@ $(document).ready(function() {
         $('.magazine').turn('page', 1);
     });
 
-    $('.download-button > div').text("Download as PDF");
+    $('.download-button > div').text("Download");
     $('.download-button').on('click', function() {
         window.open('https://drive.google.com/file/d/1Iw6LN-kJehCR0n-ejHx4kZicz-nmrEK-/view?usp=drive_link', '_blank');
     });
