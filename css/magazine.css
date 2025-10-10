@@ -425,7 +425,7 @@ body{
 	float:left;
 }
 
-.exit-message, .welcome-message, .awesome-message, .zoomhow-message, .zoomesc-message, .outro-message{
+.exit-message, .welcome-message,  .awesome-message, .zoomhow-message, .zoomesc-message, .outro-message{
 	position: absolute;
 	display: flex;
 	top:10px;
@@ -522,12 +522,4 @@ body{
 }
 
 
-/* Mobile-specific styles for single-page view */
-@media (max-width: 768px) {
-    .magazine-viewport .container {
-        position: absolute;
-        top: 50%;
-        left: 25% !important;
-    }
-
-}
+/*//////////////////////////////////// */

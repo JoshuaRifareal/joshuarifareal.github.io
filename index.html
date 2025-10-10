@@ -62,6 +62,91 @@
 
 		<script type="text/javascript">
 
+			// === MOBILE LANDSCAPE DETECTION ===
+			function setupLandscapeOverlay() {
+				// Create overlay element dynamically
+				var overlay = $('<div id="landscape-overlay"></div>');
+				var content = $('<div class="landscape-content"></div>');
+				var message = $('<div class="landscape-message">Please rotate your device to landscape mode</div>');
+				var phoneSvg = `
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
+						<path d="M19 12.0039H19.01" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+						<path d="M2 10.5L2 13.5C2 15.857 2 17.0355 2.73223 17.7678C3.46447 18.5 4.64298 18.5 7 18.5H17C19.357 18.5 20.5355 18.5 21.2678 17.7678C22 17.0355 22 15.857 22 13.5V10.5C22 8.14298 22 6.96447 21.2678 6.23223C20.5355 5.5 19.357 5.5 17 5.5L7 5.5C4.64298 5.5 3.46447 5.5 2.73223 6.23223C2 6.96447 2 8.14298 2 10.5Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+					</svg>
+				`;
+				var phoneIcon = $(phoneSvg);
+
+				// Build the overlay structure
+				content.append(phoneIcon, message);
+				overlay.append(content);
+				
+				// Apply styles via JavaScript
+				overlay.css({
+					'position': 'fixed',
+					'top': '0',
+					'left': '0',
+					'width': '100vw',
+					'height': '100vh',
+					'background': '#1a1a1a',
+					'color': 'white',
+					'z-index': '100000',
+					'font-family': 'Arial, sans-serif',
+					'display': 'none'
+				});
+				
+				content.css({
+					'display': 'flex',
+					'flex-direction': 'column',
+					'justify-content': 'center',
+					'align-items': 'center',
+					'height': '100%',
+					'text-align': 'center',
+					'padding': '20px'
+				});
+				
+				phoneIcon.css({
+					'font-size': '48px',
+					'margin-bottom': '20px',
+					'animation': 'rotateIcon 2s ease-in-out infinite'
+				});
+				
+				message.css({
+					'font-size': '18px',
+					'line-height': '1.4'
+				});
+				
+				// Add to body
+				$('body').append(overlay);
+				
+				// Add keyframes for animation
+				$('<style>@keyframes rotateIcon { 0% { transform: rotate(0); } 100% { transform: rotate(360deg); } } }</style>').appendTo('head');
+				
+				function checkOrientation() {
+					var isMobile = $(window).width() <= 768;
+					var isPortrait = window.innerHeight > window.innerWidth;
+					
+					if (isMobile && isPortrait) {
+						// Show overlay, hide content
+						overlay.show();
+						$('#canvas, .welcome-message, .awesome-message, .zoomhow-message, .zoomesc-message, .outro-message').hide();
+					} else {
+						// Hide overlay, show content
+						overlay.hide();
+						$('#canvas, .welcome-message, .awesome-message, .zoomhow-message, .zoomesc-message, .outro-message').show();
+					}
+				}
+				
+				// Initial check
+				checkOrientation();
+				
+				// Listen for changes
+				$(window).on('resize orientationchange', checkOrientation);
+				
+				// Periodic check for reliability
+				setInterval(checkOrientation, 1000);
+			}
+
+
 			// === PRELOAD FUNCTION ===
 			function preloadAllImages() {
 				const totalPages = 44; // From your turn.js config
@@ -136,8 +221,10 @@
 
 			// === LOAD SEQUENCE ===
 			$(document).ready(function() {
-				// Start preloading immediately when page loads
+				// 
+				setupLandscapeOverlay();
 				preloadAllImages();
+				
 				
 				// Load dependencies while images preload
 				yepnope({
@@ -566,7 +653,7 @@
 			// Temporary device width display
 			$(document).ready(function() {
 				var widthDisplay = $('<div style="position: fixed; top: 10px; left: 10px; background: rgba(0,0,0,0.8); color: white; padding: 10px; z-index: 999999; font-family: Arial; font-size: 14px; border-radius: 5px;"></div>');
-				$('body').append(widthDisplay);
+				// $('body').append(widthDisplay);
 				
 				function updateWidthDisplay() {
 					var width = $(window).width();
