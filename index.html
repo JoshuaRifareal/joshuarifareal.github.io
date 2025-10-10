@@ -562,6 +562,22 @@
 				clarity('event', 'portfolio_opened');
 			}
 
+
+			// Temporary device width display
+			$(document).ready(function() {
+				var widthDisplay = $('<div style="position: fixed; top: 10px; left: 10px; background: rgba(0,0,0,0.8); color: white; padding: 10px; z-index: 999999; font-family: Arial; font-size: 14px; border-radius: 5px;"></div>');
+				$('body').append(widthDisplay);
+				
+				function updateWidthDisplay() {
+					var width = $(window).width();
+					var height = $(window).height();
+					widthDisplay.text('Width: ' + width + 'px × Height: ' + height + 'px');
+				}
+				
+				updateWidthDisplay();
+				$(window).on('resize', updateWidthDisplay);
+			});
+
 		</script>
 
 	</body>
