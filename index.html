@@ -1,309 +1,270 @@
 <!doctype html>
+
 <html lang="en">
-<head>
-	<title>Joshua Rifareal</title>
-	<meta name="viewport" content="width=1050, user-scalable=0" />
-	<meta name="title" property="og:title" content="Joshua Rifareal | Architectural Portfolio">
-	<meta name="description" property="og:description" content="A collection of selected architectural works by Joshua Rifareal">
-	<meta name="image" property="og:image" content="https://raw.githubusercontent.com/JoshuaRifareal/joshuarifareal.github.io/refs/heads/main/pics/preview.png">
-	<link rel="icon" type="image/png" href="pics/JRE Logo Light.ico" />
-	<link rel="stylesheet" href="css/preload.css" />
 
-	<script type="text/javascript" src="extras/jquery.min.1.7.js"></script>
-	<script type="text/javascript" src="extras/jquery-ui-1.8.20.custom.min.js"></script>
-	<script type="text/javascript" src="extras/modernizr.2.5.3.min.js"></script>
-	<script type="text/javascript" src="lib/hash.js"></script>
-	<script type="text/javascript" src="js/helptips.js"></script>
+	<head>
+		<title>Joshua Rifareal</title>
+		<meta name="viewport" content="width=1050, user-scalable=0" />
+		<meta name="title" property="og:title" content="Joshua Rifareal | Architectural Portfolio">
+		<meta name="description" property="og:description" content="A collection of selected architectural works by Joshua Rifareal">
+		<meta name="image" property="og:image" content="https://raw.githubusercontent.com/JoshuaRifareal/joshuarifareal.github.io/refs/heads/main/pics/preview.png">
+		<link rel="icon" type="image/png" href="pics/JRE Logo Light.ico" />
+		<link rel="stylesheet" href="css/preload.css" />
 
-	<script type="text/javascript">
-		(function(c,l,a,r,i,t,y){
-			c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-			t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-			y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-		})(window, document, "clarity", "script", "tme485sy4p");
-	</script>
+		<script type="text/javascript" src="extras/jquery.min.1.7.js"></script>
+		<script type="text/javascript" src="extras/jquery-ui-1.8.20.custom.min.js"></script>
+		<script type="text/javascript" src="extras/modernizr.2.5.3.min.js"></script>
+		<script type="text/javascript" src="lib/hash.js"></script>
+		<script type="text/javascript" src="js/helptips.js"></script>
 
-	<style>
-		.magazine:after { 
-			transition: opacity 0s ease; opacity: 0; visibility: hidden; 
-		}
-		.magazine:before { 
-			transition: opacity 0s ease; opacity: 1; visibility: visible; 
-		}
-	</style>
+		<script type="text/javascript">
+			(function(c,l,a,r,i,t,y){
+				c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+				t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+				y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+			})(window, document, "clarity", "script", "tme485sy4p");
+		</script>
 
-</head>
+		<style>
+			.magazine:after { 
+				transition: opacity 0s ease; opacity: 0; visibility: hidden; 
+			}
+			.magazine:before { 
+				transition: opacity 0s ease; opacity: 1; visibility: visible; 
+			}
+		</style>
 
+	</head>
 
-<body>
+	<body>
 
-	<div id="canvas">
+		<div id="canvas">
 
-		<div class="download-button"><div></div></div>
+			<div class="download-button"><div></div></div>
 
-		<div class="magazine-viewport">
-			<div class="container" draggable="false">
-				<div class="magazine" draggable="false">
+			<div class="magazine-viewport">
+				<div class="container" draggable="false">
+					<div class="magazine" draggable="false">
+					</div>
 				</div>
 			</div>
+
+			<div class="restart-button"><div></div></div>
+			<!-- <div class="developer-credits">Website designed and developed by <a href="https://github.com/JoshuaRifareal">Joshua Rifareal</a></div> -->
+
 		</div>
 
-		<div class="restart-button"><div></div></div>
-		<div class="developer-credits">Website designed and developed by <a href="https://github.com/JoshuaRifareal">Joshua Rifareal</a></div>
+		<div class="welcome-message"><div></div></div>
+		<div class="awesome-message"><div></div></div>
+		<div class="zoomhow-message"><div></div></div>
+		<div class="zoomesc-message"><div></div></div>
+		<div class="outro-message"><div></div></div>
 
-	</div>
+		<script type="text/javascript">
 
-	<div class="welcome-message"><div></div></div>
-	<div class="awesome-message"><div></div></div>
-	<div class="zoomhow-message"><div></div></div>
-	<div class="zoomesc-message"><div></div></div>
-	<div class="outro-message"><div></div></div>
-
-	<script type="text/javascript">
-
-		// === PRELOAD FUNCTION ===
-		function preloadAllImages() {
-			const totalPages = 44; // From your turn.js config
-			let loadedCount = 0;
-			let hasErrors = false;
-			
-			// Create progress UI
-			const progressContainer = $('<div class="preload-overlay"></div>');
-			const progressBarContainer = $('<div class="preload-progress-bar-container"></div>');
-			const progressBar = $('<div class="preload-progress-bar"></div>');
-			const progressText = $('<div class="preload-text">Loading portfolio... 0%</div>');
-			const progressSubtext = $('<div class="preload-subtext">Preparing high-resolution images</div>');
-			
-			progressBarContainer.append(progressBar);
-			progressContainer.append(progressBarContainer, progressText, progressSubtext);
-			$('body').prepend(progressContainer);
-			
-			// Preload all page images
-			for (let page = 1; page <= totalPages; page++) {
-				const img = new Image();
-				img.src = `content/Frame ${page}.webp`;
+			// === PRELOAD FUNCTION ===
+			function preloadAllImages() {
+				const totalPages = 44; // From your turn.js config
+				let loadedCount = 0;
+				let hasErrors = false;
 				
-				img.onload = function() {
-					loadedCount++;
-					const progress = Math.round((loadedCount / totalPages) * 100);
-					
-					// Update progress UI
-					progressBar.css('width', progress + '%');
-					progressText.text(`Loading portfolio... ${progress}%`);
-					
-					// Preload large versions for zoom (if they exist)
-					// const largeImg = new Image();
-					// largeImg.src = `content/Frame ${page}-large.jpg`;
-					
-					// Check if all images are loaded
-					if (loadedCount === totalPages) {
-						setTimeout(() => {
-							progressContainer.fadeOut(500, function() {
-								$(this).remove();
-								// Start the main application
-								if (typeof loadApp === 'function') {
-									loadApp();
-								}
-							});
-						}, 500);
-					}
-				};
+				// Create progress UI
+				const progressContainer = $('<div class="preload-overlay"></div>');
+				const progressBarContainer = $('<div class="preload-progress-bar-container"></div>');
+				const progressBar = $('<div class="preload-progress-bar"></div>');
+				const progressText = $('<div class="preload-text">Loading portfolio... 0%</div>');
+				const progressSubtext = $('<div class="preload-subtext">Preparing high-resolution images</div>');
 				
-				img.onerror = function() {
-					loadedCount++; // Count errors as loaded to avoid hanging
-					hasErrors = true;
-					console.warn(`Failed to load image for page ${page}`);
+				progressBarContainer.append(progressBar);
+				progressContainer.append(progressBarContainer, progressText, progressSubtext);
+				$('body').prepend(progressContainer);
+				
+				// Preload all page images
+				for (let page = 1; page <= totalPages; page++) {
+					const img = new Image();
+					img.src = `content/Frame ${page}.webp`;
 					
-					// Update progress even on error
-					const progress = Math.round((loadedCount / totalPages) * 100);
-					progressBar.css('width', progress + '%');
-					progressText.text(`Loading portfolio... ${progress}%`);
-					
-					if (loadedCount === totalPages) {
-						setTimeout(() => {
-							progressContainer.fadeOut(500, function() {
-								$(this).remove();
-								if (typeof loadApp === 'function') {
-									loadApp();
-								}
-							});
-						}, 500);
-					}
-				};
-			}
-		}
-
-		// === LOAD SEQUENCE ===
-		$(document).ready(function() {
-			// Start preloading immediately when page loads
-			preloadAllImages();
-			
-			// Load dependencies while images preload
-			yepnope({
-				test: Modernizr.csstransforms,
-				yep: ['../../lib/turn.js'],
-				nope: ['../../lib/turn.html4.min.js', 'css/jquery.ui.html4.css'],
-				both: ['../../lib/zoom.min.js', 'css/jquery.ui.css', 'js/magazine.js', 'css/magazine.css'],
-				complete: function() {
-					// loadApp() will be called from preload completion
-					console.log('Dependencies loaded, waiting for images...');
-				}
-			});
-		});
-
-		// === LOAD APP ===
-		function loadApp() {
-			$('#canvas').fadeIn(1000);
-
-			// === CLARITY ===
-			initClarityTracking();
-
-			// Show welcome message
-			welcomeMessage(8000);
-
-			var flipbook = $('.magazine');
-
-			// Check if the CSS was already loaded
-			
-			if (flipbook.width()==0 || flipbook.height()==0) {
-				setTimeout(loadApp, 10);
-				return;
-			}
-			
-			// Create the flipbook
-
-			flipbook.turn({
+					img.onload = function() {
+						loadedCount++;
+						const progress = Math.round((loadedCount / totalPages) * 100);
 						
-						width: 1660,
-						// width: 922,
-
-						height: 1170,
-						// height: 600,
-
-						// Duration in millisecond
-
-						duration: 1000,
-
-						// Enables gradients
-
-						gradients: true,
+						// Update progress UI
+						progressBar.css('width', progress + '%');
+						progressText.text(`Loading portfolio... ${progress}%`);
 						
-						// Auto center this flipbook
-
-						autoCenter: true,
-
-						// Elevation from the edge of the flipbook when turning a page
-
-						elevation: 100,
-
-						// The number of pages (specify if using slider)
-						pages: 44,
-
-						acceleration: true,
-
-						// Events
-
-						when: {
-							// 'start', 'first', 'flip', 'last', 'pressed','released', 'end'
-							first: function(event, page, view) {
-								$('<style>.magazine:after { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
-							
-								// Show welcome and hide awesome
-								welcomeMessage(3000);
-							},
-							pressed: function(event, page, view) {
-								// console.log("pressed ", $(this).turn('view'), " at ", page.corner)
-								
-								if ( $(this).turn('view')[0] == 2 && page.corner == "bl") {
-									$('<style>.magazine:after { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
-								}
-								if ( $(this).turn('view')[1] == $(this).turn('pages') - 1 && page.corner == "br" ) {
-									$('<style>.magazine:before { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
-								}
-							},
-							released: function(event, page, view) {
-								console.log("released ", $(this).turn('view'), " at ", page.corner)
-								
-								if ( $(this).turn('view')[0] == 2 && page.corner == "bl" ) {
-									$('<style>.magazine:after { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
-								}
-								if ( $(this).turn('view')[1] ==  $(this).turn('pages') - 1 && page.corner == "br" ) {
-									$('<style>.magazine:before { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
-								}
-							},
-							turning: function(event, page, view) {
-								
-								var book = $(this),
-								currentPage = book.turn('page'),
-								pages = book.turn('pages');
+						// Preload large versions for zoom (if they exist)
+						// const largeImg = new Image();
+						// largeImg.src = `content/Frame ${page}-large.jpg`;
 						
-								// Update the current URI
-								Hash.go('page/' + page).update();
-
-								// Show and hide navigation buttons
-								disableControls(page);
-							},
-							turned: function(event, page, view) {
-								
-								disableControls(page);
-
-								$(this).turn('center');
-
-								$('#slider').slider('value', getViewNumber($(this), page));
-
-								if (page==1) { 
-									$(this).turn('peel', 'br');
-									welcomeMessage(3000);
-								}
-
-								if (page==2) {
-									awesomeMessageShow(500);
-									awesomeMessageHide(3000, 500);
-								}
-
-								if (page==4 || page==22 || page==23 || page==30 || page==31) {
-									zoomMessageShow(3000, 500);
-									outroMessageHide(250);
-								} 
-								
-								if (page==5 || page==6 || page==24 || page==32 ) {
-									zoomMessageHide(500, 500);
-								}
-
-								if (page==42 || page==43 || page==44) {
-									outroMessageShow(500);
-								} else {
-									outroMessageHide(250);
-								}
-
-								if (page!=1) {
-									$('<style>.magazine:after { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
-
-									$('.welcome-message > div').fadeOut(0);
-								}
-								if (page!=$(this).turn('pages')) {
-									$('<style>.magazine:before { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
-								}
-								if (page==($(this).turn('pages')-1) || page==($(this).turn('pages')-2)) {
-									$('<style>.magazine:before { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
-								}
-							},
-							last: function(event, page, view) {
-								$('<style>.magazine:before { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
-							},
-							missing: function (event, pages) {
-
-								// Add pages that aren't in the magazine
-
-								for (var i = 0; i < pages.length; i++)
-									addPage(pages[i], $(this));
-
-							}
+						// Check if all images are loaded
+						if (loadedCount === totalPages) {
+							setTimeout(() => {
+								progressContainer.fadeOut(500, function() {
+									$(this).remove();
+									// Start the main application
+									if (typeof loadApp === 'function') {
+										loadApp();
+									}
+								});
+							}, 500);
 						}
+					};
+					
+					img.onerror = function() {
+						loadedCount++; // Count errors as loaded to avoid hanging
+						hasErrors = true;
+						console.warn(`Failed to load image for page ${page}`);
+						
+						// Update progress even on error
+						const progress = Math.round((loadedCount / totalPages) * 100);
+						progressBar.css('width', progress + '%');
+						progressText.text(`Loading portfolio... ${progress}%`);
+						
+						if (loadedCount === totalPages) {
+							setTimeout(() => {
+								progressContainer.fadeOut(500, function() {
+									$(this).remove();
+									if (typeof loadApp === 'function') {
+										loadApp();
+									}
+								});
+							}, 500);
+						}
+					};
+				}
+			}
+
+			// === LOAD SEQUENCE ===
+			$(document).ready(function() {
+				// Start preloading immediately when page loads
+				preloadAllImages();
+				
+				// Load dependencies while images preload
+				yepnope({
+					test: Modernizr.csstransforms,
+					yep: ['../../lib/turn.js'],
+					nope: ['../../lib/turn.html4.min.js', 'css/jquery.ui.html4.css'],
+					both: ['../../lib/zoom.min.js', 'css/jquery.ui.css', 'js/magazine.js', 'css/magazine.css'],
+					complete: function() {
+						// loadApp() will be called from preload completion
+						console.log('Dependencies loaded, waiting for images...');
+					}
+				});
+			});
+
+			// === LOAD APP ===
+			function loadApp() {
+				$('#canvas').fadeIn(1000);
+
+				// === CLARITY ===
+				initClarityTracking();
+
+				// Show welcome message
+				welcomeMessage(8000);
+
+				var flipbook = $('.magazine');
+
+				// Check if the CSS was already loaded
+				
+				if (flipbook.width()==0 || flipbook.height()==0) {
+					setTimeout(loadApp, 10);
+					return;
+				}
+				
+				// Create the flipbook
+				flipbook.turn({
+					width: 1660,
+					height: 1170,
+					duration: 1000,
+					gradients: false,
+					autoCenter: true,
+					elevation: 100,
+					pages: 44,
+					acceleration: true,
+
+					when: {
+						first: function(event, page, view) {
+							$('<style>.magazine:after { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
+							welcomeMessage(3000);
+						},
+						pressed: function(event, page, view) {
+							if ($(this).turn('view')[0] == 2 && page.corner == "bl") {
+								$('<style>.magazine:after { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
+							}
+							if ($(this).turn('view')[1] == $(this).turn('pages') - 1 && page.corner == "br" ) {
+								$('<style>.magazine:before { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
+							}
+						},
+						released: function(event, page, view) {
+							console.log("released ", $(this).turn('view'), " at ", page.corner);
+							
+							if ($(this).turn('view')[0] == 2 && page.corner == "bl" ) {
+								$('<style>.magazine:after { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
+							}
+							if ($(this).turn('view')[1] ==  $(this).turn('pages') - 1 && page.corner == "br" ) {
+								$('<style>.magazine:before { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
+							}
+						},
+						turning: function(event, page, view) {
+							var book = $(this),
+							currentPage = book.turn('page'),
+							pages = book.turn('pages');
+					
+							Hash.go('page/' + page).update();
+							disableControls(page);
+						},
+						turned: function(event, page, view) {
+							disableControls(page);
+							$(this).turn('center');
+							$('#slider').slider('value', getViewNumber($(this), page));
+
+							if (page==1) { 
+								$(this).turn('peel', 'br');
+								welcomeMessage(3000);
+							}
+
+							if (page==2) {
+								awesomeMessageShow(500);
+								awesomeMessageHide(3000, 500);
+							}
+
+							if (page==4 || page==22 || page==23 || page==30 || page==31) {
+								zoomMessageShow(3000, 500);
+								outroMessageHide(250);
+							} 
+							
+							if (page==5 || page==6 || page==24 || page==32 ) {
+								zoomMessageHide(500, 500);
+							}
+
+							if (page==42 || page==43 || page==44) {
+								outroMessageShow(500);
+							} else {
+								outroMessageHide(250);
+							}
+
+							if (page!=1) {
+								$('<style>.magazine:after { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
+								$('.welcome-message > div').fadeOut(0);
+							}
+							if (page!=$(this).turn('pages')) {
+								$('<style>.magazine:before { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
+							}
+							if (page==($(this).turn('pages')-1) || page==($(this).turn('pages')-2)) {
+								$('<style>.magazine:before { transition: opacity 1s ease; opacity: 1; visibility: visible; }</style>').appendTo('head');
+							}
+						},
+						last: function(event, page, view) {
+							$('<style>.magazine:before { transition: opacity 0.5s ease; opacity: 0; visibility: hidden; }</style>').appendTo('head');
+						},
+						missing: function (event, pages) {
+							for (var i = 0; i < pages.length; i++)
+								addPage(pages[i], $(this));
+						}
+					}
 				});
 
 				// Zoom.js
-
 				$('.magazine-viewport').zoom({
 					flipbook: $('.magazine'),
 
@@ -357,15 +318,13 @@
 				});
 
 				// Zoom event
-
-				if ($.isTouch)
+				if ($.isTouch) {
 					$('.magazine-viewport').bind('zoom.doubleTap', zoomTo);
-				else
+				} else {
 					$('.magazine-viewport').bind('zoom.tap', zoomTo);
-
+				}
 
 				// Using arrow keys to turn the page
-
 				$(document).keydown(function(e){
 
 					var previous = 37, // Left arrow key
@@ -407,7 +366,6 @@
 
 
 				// URIs - Format #/page/1 
-
 				Hash.on('^page\/([0-9]*)$', {
 					yep: function(path, parts) {
 						var page = parts[1];
@@ -432,16 +390,7 @@
 					resizeViewport();
 				});
 
-				// // Regions
-
-				// if ($.isTouch) {
-				// 	$('.magazine').bind('touchstart', regionClick);
-				// } else {
-				// 	$('.magazine').click(regionClick);
-				// }
-
 				// Events for the next button
-
 				$('.next-button').bind($.mouseEvents.over, function() {
 					
 					$(this).addClass('next-button-hover');
@@ -465,7 +414,6 @@
 				});
 
 				// Events for the next button
-				
 				$('.previous-button').bind($.mouseEvents.over, function() {
 					
 					$(this).addClass('previous-button-hover');
@@ -490,7 +438,6 @@
 
 
 				// Slider
-
 				$( "#slider" ).slider({
 					min: 1,
 					max: numberOfViews(flipbook),
@@ -528,93 +475,94 @@
 
 				$('.magazine').addClass('animated');
 
-		}
-
-		// === INTERACTIONS ===
-		$('.zoom-icon').bind('mouseover', function() { 
-			
-			if ($(this).hasClass('zoom-icon-in'))
-				$(this).addClass('zoom-icon-in-hover');
-
-			if ($(this).hasClass('zoom-icon-out'))
-				$(this).addClass('zoom-icon-out-hover');
-		
-		}).bind('mouseout', function() { 
-			
-			if ($(this).hasClass('zoom-icon-in'))
-				$(this).removeClass('zoom-icon-in-hover');
-			
-			if ($(this).hasClass('zoom-icon-out'))
-				$(this).removeClass('zoom-icon-out-hover');
-
-		}).bind('click', function() {
-
-			if ($(this).hasClass('zoom-icon-in'))
-				$('.magazine-viewport').zoom('zoomIn');
-			else if ($(this).hasClass('zoom-icon-out'))	
-				$('.magazine-viewport').zoom('zoomOut');
-
-		});
-
-		$('#canvas').hide();
-
-
-		// === CLARITY TRACKING ===
-		function initClarityTracking() {
-			// Check if Clarity is available (not blocked)
-			if (typeof clarity !== 'function') {
-				console.log('Clarity not available (may be blocked by user)');
-				return;
 			}
-			
-			const sessionStart = new Date();
-			let pagesViewed = new Set([1]);
-			let zoomUsed = false;
-			
-			console.log('Clarity tracking initialized');
-			
-			// Track page turns
-			$(document).on('turned', '.magazine', function(event, page) {
-				if (typeof clarity !== 'function') return;
+
+			// === INTERACTIONS ===
+			$('.zoom-icon').bind('mouseover', function() { 
 				
-				pagesViewed.add(page);
+				if ($(this).hasClass('zoom-icon-in'))
+					$(this).addClass('zoom-icon-in-hover');
+
+				if ($(this).hasClass('zoom-icon-out'))
+					$(this).addClass('zoom-icon-out-hover');
+			
+			}).bind('mouseout', function() { 
 				
-				clarity('event', 'portfolio_page_turn', {
-					page_number: page,
-					total_pages_viewed: pagesViewed.size
+				if ($(this).hasClass('zoom-icon-in'))
+					$(this).removeClass('zoom-icon-in-hover');
+				
+				if ($(this).hasClass('zoom-icon-out'))
+					$(this).removeClass('zoom-icon-out-hover');
+
+			}).bind('click', function() {
+
+				if ($(this).hasClass('zoom-icon-in'))
+					$('.magazine-viewport').zoom('zoomIn');
+				else if ($(this).hasClass('zoom-icon-out'))	
+					$('.magazine-viewport').zoom('zoomOut');
+
+			});
+
+			$('#canvas').hide();
+
+
+			// === CLARITY TRACKING ===
+			function initClarityTracking() {
+				// Check if Clarity is available (not blocked)
+				if (typeof clarity !== 'function') {
+					console.log('Clarity not available (may be blocked by user)');
+					return;
+				}
+				
+				const sessionStart = new Date();
+				let pagesViewed = new Set([1]);
+				let zoomUsed = false;
+				
+				console.log('Clarity tracking initialized');
+				
+				// Track page turns
+				$(document).on('turned', '.magazine', function(event, page) {
+					if (typeof clarity !== 'function') return;
+					
+					pagesViewed.add(page);
+					
+					clarity('event', 'portfolio_page_turn', {
+						page_number: page,
+						total_pages_viewed: pagesViewed.size
+					});
+					
+					// Track project views
+					const projectPages = [4, 5, 6, 22, 23, 24, 30, 31, 32];
+					if (projectPages.includes(page)) {
+						clarity('event', 'project_view', {
+							project_page: page
+						});
+					}
+					
+					// Track completion
+					if (page >= 42) {
+						const completion = Math.round((page / 44) * 100);
+						clarity('event', 'portfolio_completion', {
+							completion_percentage: completion
+						});
+					}
 				});
 				
-				// Track project views
-				const projectPages = [4, 5, 6, 22, 23, 24, 30, 31, 32];
-				if (projectPages.includes(page)) {
-					clarity('event', 'project_view', {
-						project_page: page
-					});
-				}
+				// Track zoom
+				$(document).on('zoomIn', '.magazine-viewport', function() {
+					if (typeof clarity !== 'function') return;
+					if (!zoomUsed) {
+						zoomUsed = true;
+						clarity('event', 'zoom_used');
+					}
+				});
 				
-				// Track completion
-				if (page >= 42) {
-					const completion = Math.round((page / 44) * 100);
-					clarity('event', 'portfolio_completion', {
-						completion_percentage: completion
-					});
-				}
-			});
-			
-			// Track zoom
-			$(document).on('zoomIn', '.magazine-viewport', function() {
-				if (typeof clarity !== 'function') return;
-				if (!zoomUsed) {
-					zoomUsed = true;
-					clarity('event', 'zoom_used');
-				}
-			});
-			
-			// Track portfolio opened
-			clarity('event', 'portfolio_opened');
-		}
+				// Track portfolio opened
+				clarity('event', 'portfolio_opened');
+			}
 
-	</script>
+		</script>
 
-</body>
+	</body>
+
 </html>
